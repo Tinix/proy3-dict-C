@@ -1,0 +1,37 @@
+Pregunta:
+    ¿Por que razon falla la aserción?
+Respuesta:
+    Porque al guardar la copia en un archivo, dict_dump llama a bst_to_list que
+    recorre el árbol in-order (left, value, right), lo que hace que se almacene
+    el diccionario con las palabras ordenadas alfabéticamente.
+
+
+Pregunta:
+    ¿Que sucede cuando se llama a dict_from_file con un archivo que tenga las
+    palabras ordenadas?
+Respuesta:
+    Sea n la cantidad de palabras del diccionario. dict_from_file llama n veces
+    a dict_add que a su vez llama a bst_add, que agrega el nuevo nodo siempre
+    en el "hijo derecho" del nodo máximo en ese momento.
+
+
+Pregunta:
+    ¿Cómo queda la estructura del arbol?
+Respuesta:
+    Queda con n nodos. Los primeros n-1 nodos tienen solo 1 "hijo derecho" y el
+    el último nodo no tiene hijos. La altura del árbol es n-1.
+
+
+Pregunta:
+    ¿Afecta eso en la eficiencia de los algoritmos?
+Respuesta:
+    En el mejor caso, cuando el árbol está balanceado, agregar, borrar,
+    calcular el tamaño o buscar serían algoritmos O(log n). Pero en este caso,
+    dichos algoritmos son O(n) (más lentos).
+
+
+Modificación hecha:
+    Ahora bst_to_list recorre el árbol pre-order (value, left, right). En
+    general, original.dic NO va a ser igual a copy.dic necesariamente, pero
+    ambos van a tener exactamente la misma estructura de BST en memoria. Es
+    decir, la aserción NO falla.
